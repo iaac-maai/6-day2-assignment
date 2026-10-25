@@ -27,6 +27,7 @@ data/         seattle_buildings_clean.csv (the clean table from Day 1)
 figures/      plots exported by the notebook
 models/       README.md = the model card (+ its 2 figures), model.joblib is only on Hugging Face
 notebook/     supervised_learning.ipynb
+demo/         app.py, a small app to try the model in the browser
 .gitignore
 LICENSE
 README.md
@@ -42,6 +43,17 @@ pip install -r requirements.txt
 ```
 
 Open `notebook/supervised_learning.ipynb`, select `.venv` and run all. The notebook reads the clean table from our Day 1 repo (fixed to one commit), saves a copy in `data/`, the plots in `figures/` and the trained model in `models/model.joblib`.
+
+## Try it
+
+A small Gradio app to try the model without writing code: pick the use, the neighborhood, the year, the floors and the area, and you get the estimate.
+
+```bash
+pip install gradio==6.30.0
+python demo/app.py
+```
+
+Then open http://127.0.0.1:7860. The app downloads the model from Hugging Face.
 
 ## Approach
 
@@ -103,7 +115,7 @@ Cross-validation on the training set:
 |---|---|
 | Tools | Claude Code (agent) |
 | Why | to go faster with the code and to have something to ask every time we didn't get a step |
-| Where | the pipeline code, the plots, the first drafts of the texts, the model card and this README |
+| Where | the pipeline code, the plots, the first drafts of the texts, the model card, this README and the demo app |
 | How | we went through every cell asking why. For example: "isn't this error huge?". We ran everything again ourselves at the end |
 
 Lessons learned: in the first version the AI used `has_gas` as an input and explained it as a design choice, and it sounded right. Chloe noticed it actually comes from the gas bills, so it's leakage, and we took it out. The explanation sounding good doesn't mean it's right, you have to check where every input comes from yourselves.
